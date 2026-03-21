@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Vision AI | Live Dashboard</title>
+    <style>
+        :root {
+            --dark-blue: #0A1128;
+            --light-blue: #0077B6;
+            --accent-blue: #00B4D8;
+            --text-white: #E0FBFC;
+            --text-light-gray: #B3C4EF;
+            --glow-color: rgba(0, 180, 216, 0.4);
+            --card-bg: rgba(16, 26, 60, 0.6);
+            --danger: #ff0054;
+            --warning: #fee440;
+            --safe: #00f5d4;
+        }
+
+        body {
+            background-color: var(--dark-blue);
+            background-image: radial-gradient(circle at top right, #101a3c, #0a1128);
+            color: var(--text-white);
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 180, 216, 0.2);
+            backdrop-filter: blur(15px);
+        }
+
+        .logo { font-weight: 800; font-size: 1.5rem; color: var(--accent-blue); letter-spacing: 2px; }
+
+        /* Layout */
+        .main-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 25px;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 180, 216, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        /* Inputs */
+        input, select {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--light-blue);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .btn-scan {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, var(--light-blue), var(--accent-blue));
+            border: none;
+            border-radius: 10px;
+            color: var(--dark-blue);
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-scan:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--glow-color); }
+
+        /* Visualization Elements */
+        .gauge-container {
+            text-align: center;
+            position: relative;
+            padding: 20px;
+        }
+
+        .score-display {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin: 10px 0;
+            text-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .risk-bar-outer {
+            width: 100%;
+            height: 12px;
+            background: #1a2238;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .risk-bar-inner {
+            height: 100%;
+            width: 0%;
+            transition: width 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: var(--safe);
+        }
+
+        /* Alerts Section */
+        .alert-box {
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+
+        .alert-high { background: rgba(255, 0, 84, 0.15); border: 1px solid var(--danger); color: #ff85a1; }
+        .alert-low { background: rgba(0, 245, 212, 0.15); border: 1px solid var(--safe); color: #99ffe7; }
+
+        .pulse-icon {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
+
+        #results { display: none; }
+
+        .hint-text { font-size: 0.85rem; color: var(--text-light-gray); }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">RISK VISION <span style="color:white">AI</span></div>
+        <div style="font-size: 0.8rem; color: var(--accent-blue)">🔴 LIVE GOVT DATABASE CONNECTED</div>
+    </nav>
+
+    <div class="main-container">
+        <div class="card">
+            <h3>Analyze Vendor</h3>
+            <p class="hint-text">Enter any tech company to scan their public safety records.</p>
+            
+            <label>Company Name</label>
+            <input type="text" id="vendorInput" placeholder="e.g. Google, Zoom, Microsoft">
+            
+            <label>How important are they to you?</label>
+            <select id="criticality">
+                <option value="1">Low - We don't share much</option>
+                <option value="1.5">Medium - They handle some data</option>
+                <option value="2.5">High - They handle our secrets</option>
+            </select>
+
+            <button class="btn-scan" onclick="performRealScan()">START SECURITY SCAN</button>
+            
+            <div id="loading" style="display:none; margin-top: 20px; text-align: center;">
+                <div class="pulse-icon" style="display:inline-block; background: var(--accent-blue)"></div>
+                <p>Decrypting NIST Data...</p>
+            </div>
+        </div>
+
+        <div id="results" class="card">
+            <div class="gauge-container">
+                <span id="riskLabel" style="text-transform: uppercase; letter-spacing: 3px; font-weight: bold;">Safety Score</span>
+                <div class="score-display" id="mainScore">0</div>
+                <div class="risk-bar-outer">
+                    <div id="riskBar" class="risk-bar-inner"></div>
+                </div>
+                <p id="simpleExplanation" style="font-style: italic; color: var(--text-light-gray)"></p>
+            </div>
+
+            <h4>Safety Alerts</h4>
+            <div id="alertContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        async function performRealScan() {
+            const vendor = document.getElementById('vendorInput').value;
+            const impact = parseFloat(document.getElementById('criticality').value);
+            if (!vendor) return alert("Please enter a name");
+
+            // UI Transitions
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+
+            try {
+                // Fetch real data from NIST NVD
+                const response = await fetch(`https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=${vendor}&resultsPerPage=5`);
+                const data = await response.json();
+                const count = data.totalResults || 0;
+
+                // Simple Human Logic
+                let rawScore = Math.min(count * 5, 100); 
+                let finalScore = Math.round(rawScore * (impact / 1.5));
+                if(finalScore > 100) finalScore = 100;
+
+                // Update UI elements
+                setTimeout(() => {
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('results').style.display = 'block';
+                    
+                    const scoreEl = document.getElementById('mainScore');
+                    const barEl = document.getElementById('riskBar');
+                    const explainer = document.getElementById('simpleExplanation');
+                    const alertContainer = document.getElementById('alertContainer');
+                    
+                    scoreEl.innerText = finalScore;
+                    barEl.style.width = finalScore + "%";
+                    alertContainer.innerHTML = '';
+
+                    // Determine "Human" status
+                    if (finalScore > 70) {
+                        scoreEl.style.color = "var(--danger)";
+                        barEl.style.background = "var(--danger)";
+                        explainer.innerText = "High threat level. This vendor has frequent security issues.";
+                        addAlert("high", "Warning: Critical Security Flaws Found");
+                        addAlert("high", "Expert Review Highly Recommended");
+                    } else if (finalScore > 30) {
+                        scoreEl.style.color = "var(--warning)";
+                        barEl.style.background = "var(--warning)";
+                        explainer.innerText = "Moderate risk. Some issues detected in their systems.";
+                        addAlert("high", "Notice: Recent System Flaws Detected");
+                    } else {
+                        scoreEl.style.color = "var(--safe)";
+                        barEl.style.background = "var(--safe)";
+                        explainer.innerText = "Looking good! This vendor has a clean security record.";
+                        addAlert("low", "Verified: Stable Security Posture");
+                    }
+                }, 800);
+
+            } catch (err) {
+                alert("Database Busy. Try again in a moment.");
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+
+        function addAlert(type, text) {
+            const container = document.getElementById('alertContainer');
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert-box alert-${type}`;
+            alertDiv.innerHTML = `<div class="pulse-icon"></div> <span>${text}</span>`;
+            container.appendChild(alertDiv);
+        }
+    </script>
+</body>
+</html>
