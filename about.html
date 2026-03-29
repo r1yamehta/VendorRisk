@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VendorRisk AI · About | Third-Party Risk Intelligence</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A1128;
+            color: #E0FBFC;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* ========== THEME VARIABLES ========== */
+        :root {
+            --dark-bg: #0A1128;
+            --navy-deep: #0A1128;
+            --accent-blue: #00B4D8;
+            --accent-glow: rgba(0, 180, 216, 0.4);
+            --text-light: #E0FBFC;
+            --text-muted: #B3C4EF;
+            --card-bg: rgba(10, 17, 40, 0.75);
+            --border-subtle: rgba(0, 180, 216, 0.2);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* ========== NAVBAR (consistent, responsive with dropdown) ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(10, 17, 40, 0.96);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-light);
+            letter-spacing: -0.3px;
+        }
+
+        .logo i {
+            color: var(--accent-blue);
+            font-size: 1.8rem;
+            filter: drop-shadow(0 0 5px var(--accent-glow));
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 36px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+            position: relative;
+            padding: 4px 0;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-blue);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-blue);
+            border-radius: 2px;
+            box-shadow: 0 0 6px var(--accent-glow);
+        }
+        .navbar-brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--text-white);
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px var(--glow-color);
+}
+
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--accent-blue);
+            cursor: pointer;
+        }
+
+        /* mobile nav */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 17, 40, 0.98);
+                backdrop-filter: blur(16px);
+                padding: 24px 0;
+                gap: 24px;
+                text-align: center;
+                border-top: 1px solid var(--border-subtle);
+                box-shadow: 0 20px 30px -12px rgba(0,0,0,0.5);
+            }
+            .nav-links.show {
+                display: flex;
+            }
+            .container {
+                padding: 0 24px;
+            }
+        }
+
+        /* ========== BUTTON & CARD BASE ========== */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 28px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -15px rgba(0, 180, 216, 0.2);
+            border-color: var(--accent-blue);
+        }
+
+        /* section headers */
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fff, var(--accent-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+        .section-sub {
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 48px;
+            font-size: 1.1rem;
+        }
+
+        /* grid layouts */
+        .grid-2, .grid-3, .grid-4 {
+            display: grid;
+            gap: 28px;
+        }
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+        @media (max-width: 900px) {
+            .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .section-title { font-size: 1.8rem; }
+        }
+
+        /* feature icons */
+        .feature-icon {
+            font-size: 2.4rem;
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        .card p, .card li {
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Hero section */
+        .hero {
+            padding: 140px 0 80px;
+            text-align: center;
+            background: radial-gradient(ellipse at 70% 20%, rgba(0,180,216,0.08), transparent 70%);
+        }
+        .hero h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            background: linear-gradient(120deg, #FFF, var(--accent-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        /* risk badge */
+        .risk-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: rgba(0,180,216,0.12);
+            color: var(--accent-blue);
+            margin-top: 12px;
+        }
+
+        /* tech stack icons row */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .tech-item {
+            background: rgba(0, 180, 216, 0.08);
+            padding: 12px 22px;
+            border-radius: 60px;
+            font-weight: 500;
+            border: 1px solid var(--border-subtle);
+        }
+
+        /* footer */
+        .footer {
+            border-top: 1px solid var(--border-subtle);
+            padding: 48px 0 32px;
+            margin-top: 60px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* simple glow */
+        .glow-text {
+            color: var(--accent-blue);
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== NAVBAR ========== -->
+<nav class="navbar">
+    <div class="container">
+        <div class="logo">
+            <img src="assets/logo.png" alt="VendorRisk AI Logo" style="width: 52px; height: 40px;">
+
+            <span>VendorRisk AI</span>
+        </div>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="analyze.html">Analyze</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <!-- <li><a href="about.html" class="active">About</a></li> -->
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>About VendorRisk AI</h1>
+            <p>Vendor risk intelligence using real‑time vulnerability data & NVD integration — built for modern security teams.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Problem Section -->
+        <section style="margin-bottom: 70px;">
+            <h2 class="section-title">The third‑party risk challenge</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <i class="fas fa-building feature-icon"></i>
+                    <h3>Expanding vendor ecosystems</h3>
+                    <p>Organizations today rely on an average of 1,200+ third-party vendors. Each connection introduces hidden vulnerabilities — from cloud providers to software libraries.</p>
+                    <div class="risk-badge"><i class="fas fa-chart-line"></i> 59% of breaches linked to third parties</div>
+                </div>
+                <div class="card">
+                    <i class="fas fa-eye-slash feature-icon"></i>
+                    <h3>Visibility gap</h3>
+                    <p>Traditional vendor assessments are point-in-time and manual. Without continuous monitoring, new CVEs and exploits go undetected, leaving critical assets exposed.</p>
+                    <div class="risk-badge"><i class="fas fa-clock"></i> Average detection delay: 97 days</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solution Section -->
+        <section style="margin-bottom: 70px;">
+            <h2 class="section-title">How VendorRisk AI solves it</h2>
+            <div class="card" style="padding: 40px;">
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+                    <div style="flex:1;">
+                        <i class="fas fa-database" style="font-size: 2.8rem; color: var(--accent-blue); margin-bottom: 20px; display: inline-block;"></i>
+                        <h3>Real‑time vulnerability correlation</h3>
+                        <p style="margin-top: 12px;">We ingest the National Vulnerability Database (NVD) API and map CVE records to your vendor software stack. Our engine analyzes severity scores (CVSS), exploitability metrics, and affected products — generating a dynamic risk profile for each vendor.</p>
+                    </div>
+                    <div style="flex:1;">
+                        <i class="fas fa-chart-simple" style="font-size: 2.8rem; color: var(--accent-blue); margin-bottom: 20px; display: inline-block;"></i>
+                        <h3>Continuous monitoring</h3>
+                        <p>Instead of static questionnaires, VendorRisk AI refreshes risk scores daily. New critical vulnerabilities trigger alerts, so security teams act before exploitation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section (grid)
+        <section style="margin-bottom: 70px;">
+            <h2 class="section-title">Core capabilities</h2>
+            <div class="grid-4">
+                <div class="card">
+                    <i class="fas fa-chart-line feature-icon"></i>
+                    <h3>Vendor risk scoring</h3>
+                    <p>Quantitative scores based on CVSS v3, exploit availability, and vendor patch history.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-bolt feature-icon"></i>
+                    <h3>Real‑time vulnerability analysis</h3>
+                    <p>Live feed from NVD API — new CVEs matched to vendor products in hours.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-chart-pie feature-icon"></i>
+                    <h3>Dashboard visualization</h3>
+                    <p>Interactive charts & heatmaps to prioritize highest‑risk vendors instantly.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-exclamation-triangle feature-icon"></i>
+                    <h3>Risk categorization</h3>
+                    <p>High / Medium / Low labels with detailed reasoning and remediation suggestions.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-history feature-icon"></i>
+                    <h3>Vendor history tracking</h3>
+                    <p>Historical risk trends and vulnerability lifecycle insights.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-shield-halos feature-icon"></i>
+                    <h3>Compliance ready reports</h3>
+                    <p>Exportable risk summaries for audits and executive briefings.</p>
+                </div>
+            </div>
+        </section> -->
+
+        <!-- Data Source Section -->
+        <section style="margin-bottom: 70px;">
+            <h2 class="section-title">Data source & transparency</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <i class="fas fa-database feature-icon"></i>
+                    <h3>National Vulnerability Database (NVD)</h3>
+                    <p>All vulnerability data is sourced from the NVD API, maintained by NIST. We fetch CVEs, CPE match strings, and severity scores to ensure accurate vendor risk mapping.</p>
+                    <div class="risk-badge"><i class="fas fa-code-branch"></i> Real‑time API sync — no static datasets</div>
+                </div>
+                <div class="card">
+                    <i class="fas fa-chart-network feature-icon"></i>
+                    <h3>Vendor software mapping</h3>
+                    <p>Our platform correlates vendor products with affected CPEs, providing direct links to technical advisories and patch information.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack -->
+        <section style="margin-bottom: 70px;">
+            <h2 class="section-title">Technology stack</h2>
+            <div class="card" style="text-align: center;">
+                <div class="tech-stack">
+                    <span class="tech-item"><i class="fab fa-html5"></i> HTML5 / CSS3</span>
+                    <span class="tech-item"><i class="fab fa-js"></i> JavaScript (ES6+)</span>
+                    <span class="tech-item"><i class="fab fa-python"></i> Python Flask</span>
+                    <span class="tech-item"><i class="fas fa-chart-line"></i> Chart.js</span>
+                    <span class="tech-item"><i class="fas fa-plug"></i> NVD API</span>
+                </div>
+                <p style="margin-top: 28px; color: var(--text-muted);">Backend processes CVEs via NVD API, frontend renders risk dashboards. Lightweight, scalable architecture designed for real‑time vendor intelligence.</p>
+            </div>
+        </section>
+
+        <!-- Use Cases -->
+        <section style="margin-bottom: 70px;">
+            <h2 class="section-title">Who uses VendorRisk AI</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <i class="fas fa-user-secret feature-icon"></i>
+                    <h3>Cybersecurity teams</h3>
+                    <p>Proactively identify risky vendors before they become breach vectors.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-clipboard-list feature-icon"></i>
+                    <h3>IT auditors</h3>
+                    <p>Automate vendor risk assessments with verifiable vulnerability evidence.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-building-user feature-icon"></i>
+                    <h3>Organizations managing vendors</h3>
+                    <p>Supply chain security, procurement, and third‑party risk management teams.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Future Scope -->
+        <section style="margin-bottom: 60px;">
+            <h2 class="section-title">Roadmap & future scope</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <i class="fas fa-database feature-icon"></i>
+                    <h3>Persistent storage</h3>
+                    <p>PostgreSQL integration to store historical vendor risk trends and custom tagging.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-brain feature-icon"></i>
+                    <h3>Predictive risk analytics</h3>
+                    <p>ML models trained on CVE trends to forecast future vendor exploit likelihood.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-lock feature-icon"></i>
+                    <h3>Authentication & RBAC</h3>
+                    <p>Secure user roles, API keys, and enterprise single sign‑on (SSO).</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-bell feature-icon"></i>
+                    <h3>Automated alerting</h3>
+                    <p>Slack / email notifications when a vendor's risk score changes.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
+                <i class="fas fa-shield-halos" style="color: var(--accent-blue);"></i>
+                 <!-- <img src="assets/logo.png" alt="VendorRisk AI Logo" style="width: 52px; height: 40px;"> -->
+                <span style="font-weight: 500;">VendorRisk AI</span>
+                 
+            </div>
+            <p>Real‑time third‑party risk intelligence powered by NVD data.</p>
+            <p style="margin-top: 20px;">Developer: Jamuna.T.G | © 2025 — VendorRisk AI</p>
+        </div>
+    </footer>
+</main>
+
+<script>
+    // mobile menu toggle
+    const toggleBtn = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navLinks');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+            const icon = toggleBtn.querySelector('i');
+            if (navMenu.classList.contains('show')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+    }
+    // close menu on click outside (optional)
+    document.addEventListener('click', (e) => {
+        if (navMenu && toggleBtn && !toggleBtn.contains(e.target) && !navMenu.contains(e.target)) {
+            navMenu.classList.remove('show');
+            const icon = toggleBtn.querySelector('i');
+            if (icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+    });
+</script>
+</body>
+</html>
