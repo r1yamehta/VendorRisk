@@ -1,0 +1,20 @@
+# Environments
+venv/
+.venv/
+env/
+
+# Python
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# Project Specific
+repomix-output.xml
+repomix-output.md
+projo_overview.txt
+proet_structure_and_plans.md
+final.md
+
+.env

@@ -1,0 +1,18 @@
+# Environments
+venv/
+.venv/
+env/
+
+# Python
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# Project Specific
+.env
+projo_overview.txt
+proet_structure_and_plans.md
+
+.gitignore

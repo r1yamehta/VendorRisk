@@ -1,0 +1,80 @@
+VendorRisk AI
+Comprehensive Third-Party Risk Intelligence Platform
+
+1. Problem Statement
+In the modern interconnected digital economy, organizations rely on thousands of
+third-party vendors for critical operations, ranging from SaaS platforms to supply
+chain logistics. However, this reliance creates a massive "Visibility Gap."
+The Core Challenges:
+Static Assessments: Traditional risk management relies on manual
+questionnaires sent once a year. A vendor's security posture can change in
+minutes due to a new CVE (Common Vulnerabilities and Exposures).
+The "Hidden" Attack Surface: Organizations often don't know the full tech stack
+of their vendors. An unpatched Nginx server at a small vendor can become an
+entry point into a large corporate network.
+Lack of Benchmarking: Decision-makers often see risk scores in a vacuum. They
+lack a "Standard Value" or industry benchmark to understand if a vendor is
+genuinely risky or just standard for their sector.
+
+2. Solution & Motive
+
+The Motive: To move from reactive "Point-in-Time" assessments to proactive,
+data-driven "Comparative Intelligence."
+
+VendorRisk AI acts as a real-time security auditor. It leverages automated technical
+discovery and historical data to provide a 360-degree view of vendor risk. Unlike
+traditional tools, it uses a Comparability Factor logic.
+Project Documentation & Technical Specification
+
+•
+
+•
+
+•
+
+1
+
+Key Objectives:
+Real-Time Correlation: Connect live software versions (Wappalyzer) with known
+vulnerabilities (OSV.dev).
+Benchmark Analysis: Compare a vendor's risk against a pre-defined "Industry
+Standard" (e.g., a Budget of 80 points).
+Multi-Factor Scoring: Evaluate not just code, but Financial, Operational, and
+Reputational stability to ensure business continuity.
+
+3. Technical Architecture
+The project follows a decoupled, modular architecture designed for high-speed data
+fetching and analytical processing.
+
+Component Technology Purpose
+
+Frontend
+
+HTML5, CSS3, JS
+(Chart.js)
+
+Interactive Dashboards & Risk Heat-Bars.
+
+Coordination
+Backend
+
+Node.js (Express)
+
+Handles User Management, Database (SQLite),
+and API Orchestration.
+
+Analytical Engine Python (Flask)
+
+The "Brain" that performs complex risk math and
+API data processing.
+
+Environment
+Manager
+
+UV (Astral)
+
+Ensures 10x faster dependency resolution and
+clean virtual environments.
+
+4. The Logic Engines (The Six Pillars)
+The

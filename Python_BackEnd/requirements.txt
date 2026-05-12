@@ -1,0 +1,29 @@
+# VendorRisk AI — Python Backend Dependencies
+# ============================================
+# Install with:  pip install -r requirements.txt
+# Or with uv:    uv pip install -r requirements.txt
+
+# ── Core Web Framework ──
+flask
+flask-cors
+python-dotenv
+flask-login
+flask-sqlalchemy
+flask-mail
+itsdangerous
+
+# ── HTTP Requests ──
+requests
+
+# ── Tech Stack Detection (free, open-source Wappalyzer fingerprints) ──
+webtech
+
+# ── Financial Data (yfinance — real market data, free) ──
+yfinance
+
+# ── News Sentiment Analysis ──
+newsapi-python
+vaderSentiment
+
+# ── DNS Utilities ──
+dnspython
